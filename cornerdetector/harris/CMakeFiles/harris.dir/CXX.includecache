@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/giusbatt/opencv/cornerdetector/harris/harris.cpp
+opencv2/highgui/highgui.hpp
+/home/giusbatt/opencv/cornerdetector/harris/opencv2/highgui/highgui.hpp
+opencv2/imgproc/imgproc.hpp
+/home/giusbatt/opencv/cornerdetector/harris/opencv2/imgproc/imgproc.hpp
+iostream
+-
+stdio.h
+-
+stdlib.h
+-
+

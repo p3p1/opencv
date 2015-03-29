@@ -1,0 +1,1 @@
+/home/giusbatt/opencv/cornerdetector/harris/CMakeFiles/harris.dir
