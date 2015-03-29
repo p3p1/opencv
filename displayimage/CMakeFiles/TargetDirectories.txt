@@ -1,0 +1,1 @@
+/home/giusbatt/opencv/displayimage/CMakeFiles/displayimage.dir

@@ -47,44 +47,44 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/giusbatt/opencv
+CMAKE_SOURCE_DIR = /home/giusbatt/opencv/displayimage
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/giusbatt/opencv
+CMAKE_BINARY_DIR = /home/giusbatt/opencv/displayimage
 
 #=============================================================================
-# Target rules for target CMakeFiles/DisplayImage.dir
+# Target rules for target CMakeFiles/displayimage.dir
 
 # All Build rule for target.
-CMakeFiles/DisplayImage.dir/all:
-	$(MAKE) -f CMakeFiles/DisplayImage.dir/build.make CMakeFiles/DisplayImage.dir/depend
-	$(MAKE) -f CMakeFiles/DisplayImage.dir/build.make CMakeFiles/DisplayImage.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/giusbatt/opencv/CMakeFiles  1
-	@echo "Built target DisplayImage"
-.PHONY : CMakeFiles/DisplayImage.dir/all
+CMakeFiles/displayimage.dir/all:
+	$(MAKE) -f CMakeFiles/displayimage.dir/build.make CMakeFiles/displayimage.dir/depend
+	$(MAKE) -f CMakeFiles/displayimage.dir/build.make CMakeFiles/displayimage.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/giusbatt/opencv/displayimage/CMakeFiles  1
+	@echo "Built target displayimage"
+.PHONY : CMakeFiles/displayimage.dir/all
 
 # Include target in all.
-all: CMakeFiles/DisplayImage.dir/all
+all: CMakeFiles/displayimage.dir/all
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/DisplayImage.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/giusbatt/opencv/CMakeFiles 1
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/DisplayImage.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/giusbatt/opencv/CMakeFiles 0
-.PHONY : CMakeFiles/DisplayImage.dir/rule
+CMakeFiles/displayimage.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/giusbatt/opencv/displayimage/CMakeFiles 1
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/displayimage.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/giusbatt/opencv/displayimage/CMakeFiles 0
+.PHONY : CMakeFiles/displayimage.dir/rule
 
 # Convenience name for target.
-DisplayImage: CMakeFiles/DisplayImage.dir/rule
-.PHONY : DisplayImage
+displayimage: CMakeFiles/displayimage.dir/rule
+.PHONY : displayimage
 
 # clean rule for target.
-CMakeFiles/DisplayImage.dir/clean:
-	$(MAKE) -f CMakeFiles/DisplayImage.dir/build.make CMakeFiles/DisplayImage.dir/clean
-.PHONY : CMakeFiles/DisplayImage.dir/clean
+CMakeFiles/displayimage.dir/clean:
+	$(MAKE) -f CMakeFiles/displayimage.dir/build.make CMakeFiles/displayimage.dir/clean
+.PHONY : CMakeFiles/displayimage.dir/clean
 
 # clean rule for target.
-clean: CMakeFiles/DisplayImage.dir/clean
+clean: CMakeFiles/displayimage.dir/clean
 .PHONY : clean
 
 #=============================================================================

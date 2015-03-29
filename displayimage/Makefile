@@ -42,10 +42,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/giusbatt/opencv
+CMAKE_SOURCE_DIR = /home/giusbatt/opencv/displayimage
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/giusbatt/opencv
+CMAKE_BINARY_DIR = /home/giusbatt/opencv/displayimage
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -72,9 +72,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/giusbatt/opencv/CMakeFiles /home/giusbatt/opencv/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/giusbatt/opencv/displayimage/CMakeFiles /home/giusbatt/opencv/displayimage/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/giusbatt/opencv/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/giusbatt/opencv/displayimage/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -102,41 +102,41 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named DisplayImage
+# Target rules for targets named displayimage
 
 # Build rule for target.
-DisplayImage: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 DisplayImage
-.PHONY : DisplayImage
+displayimage: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 displayimage
+.PHONY : displayimage
 
 # fast build rule for target.
-DisplayImage/fast:
-	$(MAKE) -f CMakeFiles/DisplayImage.dir/build.make CMakeFiles/DisplayImage.dir/build
-.PHONY : DisplayImage/fast
+displayimage/fast:
+	$(MAKE) -f CMakeFiles/displayimage.dir/build.make CMakeFiles/displayimage.dir/build
+.PHONY : displayimage/fast
 
-DisplayImage.o: DisplayImage.cpp.o
-.PHONY : DisplayImage.o
+displayimage.o: displayimage.cpp.o
+.PHONY : displayimage.o
 
 # target to build an object file
-DisplayImage.cpp.o:
-	$(MAKE) -f CMakeFiles/DisplayImage.dir/build.make CMakeFiles/DisplayImage.dir/DisplayImage.cpp.o
-.PHONY : DisplayImage.cpp.o
+displayimage.cpp.o:
+	$(MAKE) -f CMakeFiles/displayimage.dir/build.make CMakeFiles/displayimage.dir/displayimage.cpp.o
+.PHONY : displayimage.cpp.o
 
-DisplayImage.i: DisplayImage.cpp.i
-.PHONY : DisplayImage.i
+displayimage.i: displayimage.cpp.i
+.PHONY : displayimage.i
 
 # target to preprocess a source file
-DisplayImage.cpp.i:
-	$(MAKE) -f CMakeFiles/DisplayImage.dir/build.make CMakeFiles/DisplayImage.dir/DisplayImage.cpp.i
-.PHONY : DisplayImage.cpp.i
+displayimage.cpp.i:
+	$(MAKE) -f CMakeFiles/displayimage.dir/build.make CMakeFiles/displayimage.dir/displayimage.cpp.i
+.PHONY : displayimage.cpp.i
 
-DisplayImage.s: DisplayImage.cpp.s
-.PHONY : DisplayImage.s
+displayimage.s: displayimage.cpp.s
+.PHONY : displayimage.s
 
 # target to generate assembly for a file
-DisplayImage.cpp.s:
-	$(MAKE) -f CMakeFiles/DisplayImage.dir/build.make CMakeFiles/DisplayImage.dir/DisplayImage.cpp.s
-.PHONY : DisplayImage.cpp.s
+displayimage.cpp.s:
+	$(MAKE) -f CMakeFiles/displayimage.dir/build.make CMakeFiles/displayimage.dir/displayimage.cpp.s
+.PHONY : displayimage.cpp.s
 
 # Help Target
 help:
@@ -144,12 +144,12 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... DisplayImage"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... DisplayImage.o"
-	@echo "... DisplayImage.i"
-	@echo "... DisplayImage.s"
+	@echo "... displayimage"
+	@echo "... displayimage.o"
+	@echo "... displayimage.i"
+	@echo "... displayimage.s"
 .PHONY : help
 
 

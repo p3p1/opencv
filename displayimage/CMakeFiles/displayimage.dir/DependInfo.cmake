@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/giusbatt/opencv/DisplayImage.cpp" "/home/giusbatt/opencv/CMakeFiles/DisplayImage.dir/DisplayImage.cpp.o"
+  "/home/giusbatt/opencv/displayimage/displayimage.cpp" "/home/giusbatt/opencv/displayimage/CMakeFiles/displayimage.dir/displayimage.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -14,7 +14,6 @@ set(CMAKE_TARGET_LINKED_INFO_FILES
 
 # The include file search paths:
 set(CMAKE_C_TARGET_INCLUDE_PATH
-  "/usr/include/opencv"
   )
 set(CMAKE_CXX_TARGET_INCLUDE_PATH ${CMAKE_C_TARGET_INCLUDE_PATH})
 set(CMAKE_Fortran_TARGET_INCLUDE_PATH ${CMAKE_C_TARGET_INCLUDE_PATH})
