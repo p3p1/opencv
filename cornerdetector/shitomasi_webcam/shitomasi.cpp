@@ -21,24 +21,29 @@ void corner_ShiTomasi( int, void* );
 // Funzione principale
 int main( int argc, char** argv )
 {
-      
-      src = imread( argv[1], 1 );
-      cvtColor( src, src_gray, CV_BGR2GRAY );
+      VideoCapture cap(0);
+      if(!cap.isOpened())
+          return -1;
+      for(;;)
+      {
+          cap >> src;
+          cvtColor( src, src_gray, CV_BGR2GRAY );
 
-      // Creazione di una finestra con presenza di una trackbar per regolare numero di
-      // corners 
-      namedWindow( "Source image", CV_WINDOW_AUTOSIZE );
-      createTrackbar( "Max corners: ", "Source image", &maxCorners, maxTrackbar, corner_ShiTomasi );
-      // resize(src, src, Size(src.cols/2, src.rows/2));
-      imshow( "Source image", src );
+          // Creazione di una finestra con presenza di una trackbar per regolare numero di
+          // corners 
+          namedWindow( "Source image", CV_WINDOW_AUTOSIZE );
+          createTrackbar( "Max corners: ", "Source image", &maxCorners, maxTrackbar, corner_ShiTomasi );
+          // resize(src, src, Size(src.cols/2, src.rows/2));
+          imshow( "Source image", src );
 
-      corner_ShiTomasi( 0, 0);
+          corner_ShiTomasi( 0, 0);
 
-      waitKey(0);
-      return(0);
+          if(waitKey(10) >= 0) break;
+      }
+     return(0);
 }
 
-// Funzione 
+// Funzione cornerShiTomasi 
 void corner_ShiTomasi( int, void* )
 {
   // Imposto il numero massimo di corners che voglio che mi vengano riportarti in 
@@ -83,7 +88,7 @@ void corner_ShiTomasi( int, void* )
                k );
 
   // Ciclo necessario per disegnare i corners
-  cout<<"** Number of corners detected: "<<corners.size()<<endl;
+  // cout<<"** Number of corners detected: "<<corners.size()<<endl;
   int r = 4;
   for( int i = 0; i < corners.size(); i++ )
      { circle( copy, corners[i], r, Scalar(rng.uniform(0,255), rng.uniform(0,255),
