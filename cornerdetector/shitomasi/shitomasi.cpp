@@ -1,77 +1,78 @@
-// Librerie Necessarie 
-#include "opencv2/highgui/highgui.hpp" 
-#include "opencv2/imgproc/imgproc.hpp"
-#include <iostream>
-#include <stdio.h>
-#include <stdlib.h>
+/* 
+ * The following code compute the corner detection with Shi - Tomasi method. The
+ * output of program is two different windows: one with original image and a trackbar
+ * to change the threshold of scale of gray, and an another window with image in 
+ * gray scale and with the corners detected (represented by circles).
+ */
 
+// Necessary library
+#include "opencv2/highgui/highgui.hpp" // Library for build a GUI 
+#include "opencv2/imgproc/imgproc.hpp" // Library for image processing 
+#include <iostream> // Library to have a channel of comunication (load image, videos
+// and so on) 
+#include <stdio.h> 
+#include <stdlib.h>
+ 
 using namespace cv;
 using namespace std;
 
-// Variabili globali
-Mat src, src_gray;
-int maxCorners = 23; //Numero di corner che vogliamo identificare
-int maxTrackbar = 2000; //Massimo numero di corners che vogliamo identificare
+// Global variables  
+Mat src, src_gray; // src: matrix where we store the image, src_gray: matrix in scale
+//of gray
+int maxCorners = 23; //Max number of corners that we want identify
+int maxTrackbar = 2000; //Maximum of trackbar
 
 RNG rng(12345);
 
-// Funzione di supporto
-void corner_ShiTomasi( int, void* );
+// Header function
+void corner_ShiTomasi( int, void* ); 
 
-// Funzione principale
+// Main function 
 int main( int argc, char** argv )
 {
-  // Caricamento immagine e successiva conversione in scala di grigio 
+  // Load image and conversion in grayscale 
   src = imread( argv[1], 1 );
   cvtColor( src, src_gray, CV_BGR2GRAY );
 
-  // Creazione di una finestra con presenza di una trackbar per regolare numero di
-  // corners 
-  namedWindow( "Source image", CV_WINDOW_AUTOSIZE );
+  // Generation of window with trackbar to change the maximum number of corners
+  // that we want identify 
+  namedWindow( "Source image", CV_WINDOW_AUTOSIZE ); // Window name
   createTrackbar( "Max corners: ", "Source image", &maxCorners, maxTrackbar, corner_ShiTomasi );
-  // resize(src, src, Size(src.cols/2, src.rows/2));
-  imshow( "Source image", src );
+  imshow( "Source image", src ); // Associate the image to window
 
-  corner_ShiTomasi( 0, 0);
+  corner_ShiTomasi( 0, 0); // Call of header function
 
   waitKey(0);
   return(0);
 }
 
-// Funzione 
+// corner_ShiTomasi function
 void corner_ShiTomasi( int, void* )
 {
-  // Imposto il numero massimo di corners che voglio che mi vengano riportarti in 
-  // output dalla funzione goodFeaturesToTrack. Uguale ad 1 se inferiore ad 1
+  // Setting of maximum number of corners that we want identify equal to 1 (if is
+  // smaller than 1)
   if( maxCorners < 1 ) { maxCorners = 1; }
 
-  // Parametri da passare alla funzione di Shi-Tomasi necessari per il riconoscimento
-  // dei corners in particolare distanza tra blocchi, dimensioni di questi, parametro
-  // k
-  vector<Point2f> corners; // Inizializzazione matrice corners
-  double qualityLevel = 0.01; // Impostazione del livello di qualità dei corners. 
-  // Il migliore livello di qualità tra i cornes viene moltiplicato per questo parametro
-  // definendo così una soglia che verrà poi impiegata per poter accettare o 
-  // rifiutare un corner in funzione se la sua qualità è superiore o inferiore a tale
-  // soglia
-
-  double minDistance = 10; // Distanza euclidiana minima tra due corners 
-  int blockSize = 3; // Dimensioni del blocco necessario per ogni pixel dove calcolare
-  // la matrice di covarianza 
-  bool useHarrisDetector = false; //Imposto che il detector di Harris non venga usato
-  double k = 0.04;
-  /* Nota: Alla funzione che segue bisogna passare una matrice ad 8-bit o floating-point
-   * a 32-bit, single-channel.
-   * La funzione che segue usa il metodo Shi-Tomasi calcolando la qualità del corner
-   * per ogni pixel dell'immagine sorgente usando le funzioni cornerMinEigenVal() o 
-   * cornerHarris().
+  // Parameters of goodFeaturesToTrack 
+  vector<Point2f> corners; // Vector where we store the corners
+  double qualityLevel = 0.01; // Quality level of corners  
+  /* The best quality level between all corners detected times this paramater define
+   * a threshold necessary to accept or reject a corner (it depends by the corner
+   * quality if is smaller or greather than this threshold)
    */
-  /// Copia dell'immagine sorgente
+
+  double minDistance = 10; // Minimum euclidian distance between two corners 
+  int blockSize = 3; // Block dimension to compute the covariance matrix
+  bool useHarrisDetector = false; // If we want use the Harris detector
+  double k = 0.04; // Free parameter of Harris detector
+  /* Note: the input of goodFeaturesToTrack is a 8-bit or 32-bit matrix or floating-
+   * point matrix, single-channel
+   */
+  // Copy of source image
   Mat copy;
   copy = src.clone();
 
-  // Identificazione dei corners
-  // I corners vengono riportati all'interno del matrice 'corners' 
+  // Corners are reported in 'corners' vector 
   goodFeaturesToTrack( src_gray,
                corners,
                maxCorners,
@@ -82,17 +83,16 @@ void corner_ShiTomasi( int, void* )
                useHarrisDetector,
                k );
 
-  // Ciclo necessario per disegnare i corners
-  cout<<"** Number of corners detected: "<<corners.size()<<endl;
-  int r = 4;
+  // For-cycle necessary to draw the detected corners
+  int r = 4; // Radius of circles
   for( int i = 0; i < corners.size(); i++ )
      { circle( copy, corners[i], r, Scalar(rng.uniform(0,255), rng.uniform(0,255),
               rng.uniform(0,255)), -1, 8, 0 ); }
 
-  // Mostrare i corners
+  // Creation of window to plot the results of the goodFeaturesToTrack function
   // resize( src_gray, src_gray, Size(src_gray.cols/2, src_gray.rows/2));
   namedWindow( "Corners window", CV_WINDOW_AUTOSIZE );
-  imshow( "Corners window", copy );
+  imshow( "Corners window", copy ); 
 }
 
 

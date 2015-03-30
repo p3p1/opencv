@@ -1,0 +1,1 @@
+/home/giusbatt/opencv/cornerdetector/shitomasi_webcam_subpix/CMakeFiles/shitomasi.dir

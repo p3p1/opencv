@@ -1,77 +1,86 @@
-// Librerie necessarie
-#include "opencv2/highgui/highgui.hpp"
-#include "opencv2/imgproc/imgproc.hpp"
-#include <iostream>
-#include <stdio.h>
+/* 
+ * The following code compute the corner detection with Harris - Stephens method. The
+ * output of program is two different windows: one with original image and a trackbar
+ * to change the threshold of scale of gray, and an another window with image in 
+ * gray scale and with the corners detected (represented by circles).
+ */
+
+// Necessary library
+#include "opencv2/highgui/highgui.hpp" // Library for build a GUI 
+#include "opencv2/imgproc/imgproc.hpp" // Library for image processing 
+#include <iostream> // Library to have a channel of comunication (load image, videos
+// and so on) 
+#include <stdio.h> 
 #include <stdlib.h>
  
 using namespace cv;
 using namespace std;
 
-// Variabili globali 
-Mat src, src_gray;
-int thresh = 70; //Soglia di differenza nella scala di grigi
-int max_thresh = 255; //Massima soglia nella scala di grigi che vogliamo identificare
+// Global variables  
+Mat src, src_gray; // src: matrix where we store the image, src_gray: matrix in scale
+//of gray
+int thresh = 70; // Threshold in scale of gray that we want detect
+int max_thresh = 255; // Maximum threshold (necessary for trackbar) 
 
-// Funzione di supporto
+// Header function 
 void corner_Harris( int, void* );
-// Funzione principale
+// Main function 
 int main(int argc, char** argv )
 {
-    // Caricamento immagine e successiva conversione in scala di grigio 
+    // Load image and conversion in grayscale 
     src = imread( argv[1], 1 );
     cvtColor( src, src_gray, CV_BGR2GRAY );
 
-    // Creazione di una finestra con presenza di trackbar per regolare threshold
-    namedWindow( "Source image", CV_WINDOW_AUTOSIZE );
+    // Generation of window with trackbar to change the threshold 
+    namedWindow( "Source image", CV_WINDOW_AUTOSIZE ); // Window name
     createTrackbar( "Threshold: ", "Source image", &thresh, max_thresh, corner_Harris );
-    resize(src, src, Size(src.cols/2, src.rows/2));
-    imshow ( "Source image", src);
+    resize(src, src, Size(src.cols/2, src.rows/2)); // Necessary to change window size
+    imshow ( "Source image", src); // Associate the image to window
     
-    corner_Harris( 0, 0);
+    corner_Harris( 0, 0); // Call of header function
 
-    waitKey(0);
+    waitKey(0); 
     return(0);
 }
-// Funzione cornerHarris 
+
+// corner_Harris funtcion
 void corner_Harris( int, void* )
 {
-    // Definizione come matrici delle variabili dst, dst_norm, dst_norm_scaled
+    // Matrix dst, dst_norm, dst_norm_scaled
     Mat dst, dst_norm, dst_norm_scaled;
-    //Inizializzazione di dst a matrice di zeri delle stesse dimensioni di src
+    //Inizialization of zeros matrix dst with the same dimension of src 
     dst = Mat::zeros( src.size(), CV_32FC1 );
-    // Parametri da passare alla funzione di Harris-Stephens 
-    int blockSize = 2; // Dimensioni del blocco nelle vicinanze del pixel di interesse
-    int apertureSize = 3; // Dimensione estesa del kernel Sobel dovrebbe essere 1 3 5 o 7
-    double k = 0.04;  // parametro libero del detector di Harris
-    
-    /* Nota: Alla funzione che segue bisogna passare una matrice single-channel ad 
-     * 8-bit oppure una matrice di punti "floating"
-     * La funzione seguente usa il metodo di riconoscimento dei spigoli di Harris. In
-     * maniera simile alle funzioni cornerMinEigenVal() e cornerEigenValandVecs(), per
-     * pixel di coordinate (x,y) la funzione calcola una matrice di covarianza di 
-     * dimensioni 2x2 a partire da un blocco di dimensioni blockSizexblockSize e infine
-     * compie l'operazione di valutazione del dst che avrà la stessa dimensione di src
+    // Parameters of Harris - Stephens method 
+    int blockSize = 2; // Block dimension of pixel neighborhood 
+    int apertureSize = 3; // Extended dimension of kernel Sobel:1 3 5 o 7
+    double k = 0.04;  // Free parameter of Haris detector    
+    /* Note: the input of cornerHarris must be a single-channel matrix of 8-bit or 
+     * floating point matrix
+     * The following funtcion use the Harris corner detector method, in the way 
+     * similar to functions cornerMinEigenVal() and cornerEigenValandVecs(), for each
+     * pixel of coordinates (x,y) the function compute the squared coviarance matrix
+     * with dimension of 2x2 start from a block of dimension blockSizexblockSize 
     */ 
 
-    // Riconoscimento corners, l'ultimo parametro è il metodo di estrazione dei pixel
+    // Corners detection the last paramenter is the extraction method of the pixel
     cornerHarris( src_gray, dst, blockSize, apertureSize, k, BORDER_DEFAULT );
  
-    // Normalizzazione
+    // Normalization and subsequent conversion in absolute scale
     normalize( dst, dst_norm, 0, 255, NORM_MINMAX, CV_32FC1, Mat() );
     convertScaleAbs( dst_norm, dst_norm_scaled );
  
-    // Ciclo necessario per disegnare cerchi attorno i corners
+    // For-cycle necessary to draw the circles around the corners
     for( int j = 0; j < dst_norm.rows ; j++ )
     { for( int i = 0; i < dst_norm.cols; i++ )
     {
         if( (int) dst_norm.at<float>(j,i) > thresh )
-        {
+        { // The radius is 10   
            circle( dst_norm_scaled, Point( i, j ), 10,  Scalar(0), 2, 8, 0 );
         }
     }
-    }
-    // Mostrare i risultati
+    } 
+    
+    // Creation of window to plot the results of cornerHarris function
     resize(dst_norm_scaled, dst_norm_scaled, Size(dst_norm_scaled.cols/2, dst_norm_scaled.rows/2));
     namedWindow( "Corners window", CV_WINDOW_AUTOSIZE );
     imshow( "Corners window", dst_norm_scaled );

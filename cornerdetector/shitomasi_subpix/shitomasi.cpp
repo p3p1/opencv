@@ -30,26 +30,20 @@ void corner_ShiTomasi( int, void* );
 // Main function 
 int main( int argc, char** argv )
 {
-      VideoCapture cap(0); // Capture video from internal camera (webcam)
-      if(!cap.isOpened()) // Check to control if the capture is correctly opened
-          return -1;
-      for(;;) // For-cycle necessary to operate on each frame
-      {
-          cap >> src; // Associate current frame to src matrix
-          cvtColor( src, src_gray, CV_BGR2GRAY ); // Conversion in grayscale
+  // Load image and conversion in grayscale 
+  src = imread( argv[1], 1 );
+  cvtColor( src, src_gray, CV_BGR2GRAY );
 
-          // Generation of window with trackbar to change the maximum number of corners
-          // that we want identify 
-          namedWindow( "Source image", CV_WINDOW_AUTOSIZE ); // Window name
-          createTrackbar( "Max corners: ", "Source image", &maxCorners, maxTrackbar, corner_ShiTomasi );
-          // resize(src, src, Size(src.cols/2, src.rows/2));
-          imshow( "Source image", src ); // Associate the image to window
+  // Generation of window with trackbar to change the maximum number of corners
+  // that we want identify 
+  namedWindow( "Source image", CV_WINDOW_AUTOSIZE ); // Window name
+  createTrackbar( "Max corners: ", "Source image", &maxCorners, maxTrackbar, corner_ShiTomasi );
+  imshow( "Source image", src ); // Associate the image to window
 
-          corner_ShiTomasi( 0, 0); // Call of header function
+  corner_ShiTomasi( 0, 0); // Call of header function
 
-          if(waitKey(10) >= 0) break; //Refresh
-      }
-     return(0);
+  waitKey(0);
+  return(0);
 }
 
 // corner_ShiTomasi function
@@ -98,7 +92,22 @@ void corner_ShiTomasi( int, void* )
   // Creation of window to plot the results of the goodFeaturesToTrack function
   // resize( src_gray, src_gray, Size(src_gray.cols/2, src_gray.rows/2));
   namedWindow( "Corners window", CV_WINDOW_AUTOSIZE );
-  imshow( "Corners window", copy ); 
+  imshow( "Corners window", copy );
+
+  // Set the parameters to find the refined corners
+  Size winSize = Size ( 5, 5 );
+  Size zeroZone = Size ( -1, -1 );
+  // Define the class for termination criteria for iterative algorithms, 40 = mumber
+  // of iterations or elements to compute, 0.001 desired accurancy (parameters for iterative
+  // algorithm stops), TermCriteria::COUNT and TermCriteria::EPS type of termination
+  // criteria may be only TermCriteria::EPS or TermCriteria::COUNT 
+  TermCriteria criteria = TermCriteria( TermCriteria::EPS + TermCriteria::COUNT, 40, 0.001 );
+
+  // Calculate the refined corner locations
+  cornerSubPix( src_gray, corners, winSize, zeroZone, criteria );
+  // Write the refined corner
+  for( size_t i = 0; i < corners.size(); i++ )
+     { cout<<" -- Refined Corner ["<<i<<"] ("<<corners[i].x<<","<<corners[i].y<<")"<<endl; }
 }
 
 

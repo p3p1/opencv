@@ -99,6 +99,18 @@ void corner_ShiTomasi( int, void* )
   // resize( src_gray, src_gray, Size(src_gray.cols/2, src_gray.rows/2));
   namedWindow( "Corners window", CV_WINDOW_AUTOSIZE );
   imshow( "Corners window", copy ); 
+
+  // Set the parameters to find the refined corners
+  Size winSize = Size ( 5, 5 );
+  Size zeroZone = Size ( -1, -1 );
+  TermCriteria criteria = TermCriteria( TermCriteria::EPS + TermCriteria::COUNT, 40, 0.001 );
+
+  // Calculate the refined corner locations
+  cornerSubPix( src_gray, corners, winSize, zeroZone, criteria );
+  // Write the refined corner
+  for( size_t i = 0; i < corners.size(); i++ )
+     { cout<<" -- Refined Corner ["<<i<<"] ("<<corners[i].x<<","<<corners[i].y<<")"<<endl; }
 }
+
 
 
