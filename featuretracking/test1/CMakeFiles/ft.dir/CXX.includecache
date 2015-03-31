@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/giusbatt/opencv/featuretracking/test1/featuretracking.cpp
+opencv2/video/tracking.hpp
+/home/giusbatt/opencv/featuretracking/test1/opencv2/video/tracking.hpp
+opencv2/imgproc/imgproc.hpp
+/home/giusbatt/opencv/featuretracking/test1/opencv2/imgproc/imgproc.hpp
+opencv2/videoio/videoio.hpp
+/home/giusbatt/opencv/featuretracking/test1/opencv2/videoio/videoio.hpp
+opencv2/highgui/highgui.hpp
+/home/giusbatt/opencv/featuretracking/test1/opencv2/highgui/highgui.hpp
+iostream
+-
+ctype.h
+-
+

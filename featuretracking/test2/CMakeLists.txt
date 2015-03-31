@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 2.8)
+project( ft )
+find_package( OpenCV REQUIRED )
+add_executable( ft featuretracking.cpp )
+target_link_libraries( ft ${OpenCV_LIBS} )
