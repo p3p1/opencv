@@ -1,0 +1,1 @@
+/home/giusbatt/opencv/featuretracking/gunnarfarneback_webcam/CMakeFiles/ft.dir

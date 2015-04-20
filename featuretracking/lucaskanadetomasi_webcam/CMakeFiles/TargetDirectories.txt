@@ -1,0 +1,1 @@
+/home/giusbatt/opencv/featuretracking/lucaskanadetomasi_webcam/CMakeFiles/ft.dir
